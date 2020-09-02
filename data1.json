@@ -1,0 +1,12 @@
+[
+  {
+    "endpoint": "api/register/prepod",
+    "email": "learnthree@learn.com",
+    "password": "MVPStudio33"
+  },
+  {
+    "endpoint": "api/register/prepod",
+    "email": "learn4@learn.com",
+    "password": "MVPStudio33"
+  }
+]

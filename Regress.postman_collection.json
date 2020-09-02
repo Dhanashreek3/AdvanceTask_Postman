@@ -1,0 +1,1381 @@
+{
+	"info": {
+		"_postman_id": "3482ee52-a7fa-4be7-b5f2-09ecdc1a43c1",
+		"name": "Regress",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Verify the list of users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3e2502a7-95d4-4edd-9eb2-a1703d179b9e",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Env\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "532babac-0753-47ff-a163-2c242bc9c852",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify user name\", function () {\r",
+									"  pm.expect(pm.response.json().first_name).to.eql(pm.environment.get(\"Michael\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(pm.environment.get(7));\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users?page=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify the list of users using valid page number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e28e15d4-a759-42be-a3c8-924fddde1d6e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify that the list of users using valid page number\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.page).to.eql(4);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "651d9076-876d-49cb-9a8d-f1f36adcd1a1",
+								"exec": [
+									"console.log(\"Verify the list of users using valid page number\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users?page=4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify an existing single user using valid id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "183d2e54-668e-46c6-bfba-b89de093e656",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c699d18-af0f-4f9d-a84c-cbc98750559a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify an existing single user using valid id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(2);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify an existing single resource using valid id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45a4b86c-cade-4945-a68b-fa40e07b399c",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "041f2244-bdb4-41ef-9019-f82d555d450a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify an existing single resource using valid id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.id).to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/unknown/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"unknown",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify a non existing user is not in the list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b1130db1-b26f-4e0e-910e-b0856648a5ae",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "28a313e4-9a9b-4c5f-8897-c667011caf0b",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/712",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"712"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify a non existing resource is not in the list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "921be362-eb25-499f-b44e-77df7110ef34",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3976dccb-c6b3-42d7-b9d2-da7de1881433",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/unknown/23",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"unknown",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify the list of resources",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dd8d92c1-9439-4a9f-a1df-ae9697d2d952",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c91d6b3a-bacd-4245-9f32-31156264dade",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify that the list of resources using valid page number\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.page).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/unknown",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"unknown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify the list of resources with the valid page number",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cca48fc0-3224-48e8-8f8c-738df90d4f3b",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5ecd5d2-5b58-41a4-921d-687e08a1c1a5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify the list of resources with the valid page number\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.page).is.to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/unknown",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"unknown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify delay response",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf9a7759-6cf7-449d-b302-fb23fd1b2e2b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify page\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.page).to.equal(1);\r",
+									"});\r",
+									"pm.test(\"Response time is more than 300ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.above(300);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users?delay=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "delay",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Verify a user record is created using valid inputs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64b67806-abc4-4366-9747-8a30c1c23ae4",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1cd5c12a-07f6-4286-8658-32969b4ffa95",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Danny\",\r\n    \"job\": \"leader\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify a user record is created using valid inputs(2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "59421dd6-3ce0-4a0c-ba5d-5539d30bbdce",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Verify user name\", function () {\r",
+									"  pm.expect(pm.response.json().first_name).to.eql(pm.environment.get(\"morpheus\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8788099f-a3bf-4feb-87c1-6367cec79c56",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify a user record is not created using duplicate values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a321420e-36a8-4eec-8eca-c5c01066c2f2",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d460b73f-1d76-4a70-8bbc-e340bc47ef39",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Danny\",\r\n    \"job\": \"leader\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify a user record is not created using invalid job",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc3b57d8-3a31-48aa-8768-4ee651d64c25",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2ff3d227-7cce-4e18-ba96-a445818e803a",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Danny\",\r\n    \"job\": \"inv123@@\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify successful registration with valid email and password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "790a5925-2a16-4fe8-9017-70bb7e58bafe",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3eca15ba-7c1a-49a3-9bb0-1eb23a4ca2f0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify email\", function () {\r",
+									"  pm.expect(pm.response.json().email).to.eql(pm.environment.get(\"eve.holt@reqres.in\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify successful registration with valid email and password 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8d0483e2-43a9-48e8-90a0-c109fafeffa7",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "82055f2f-4c04-4ef3-839d-5f3b24e9db24",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify email\", function () {\r",
+									"    pm.expect(pm.response.json().email).to.eql(pm.environment.get('{{$email}}'));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/{{endpoint}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify successful registration(using csv file) with valid email and password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cbee1958-aeb1-4202-a64a-0e78491483c2",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8027665c-ff5f-48cc-bc8c-e9deb843edf6",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/{{endpoint}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify successful registration(using json file) with valid email and password Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2ae4c829-c7a8-43e0-9308-622d50cf8aa0",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "421f9dea-468b-4b3d-be9a-99682eb6ca69",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/{{endpoint}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{endpoint}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify successful login with valid email and password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "812eaee9-dfd4-473b-8f1c-c4c52ddc6dd8",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									"let globalvar = pm.globals.get(\"Regress\");\r",
+									"console.log(globalvar);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "971d77ea-4ed4-4c76-b2bc-5631009b698e",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"learn5@learn.com\",\r\n    \"password\": \"learnfive\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/login/prepod",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"prepod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify unsuccessful registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3171b2c7-6774-4a7f-952a-a4982522ef92",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sydney@fife\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify unsuccessful login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84b4087a-1ca0-4d1e-8d7b-1c08b76cb900",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"peter@klaven\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "Verify an existing record gets updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75ae7622-0a88-45e7-8952-c13b4dc1068a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify the updated job\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.job).to.equal(pm.environment.get(\"zion resident\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fdfae166-dc58-4037-9bcc-b449534b47a5",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users/855",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"855"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a user record without name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e6825b60-2b49-4f7c-8ef5-123a127f2033",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b1072ca-2b91-4fcd-b31c-ba2785b14d7c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"job\": \"zion resident\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DEL",
+			"item": [
+				{
+					"name": "Delete existing user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "33d7b8af-d742-4a8c-acb5-eab9ce3b6654",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ad4086a-ec50-4fe3-9a08-e5d45b073bf2",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user which is already deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9493f6d9-07c4-4223-9cb6-7c46b1351b22",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aa87b213-54ea-49fe-85bf-fde843bf090b",
+								"exec": [
+									"console.log(\"Welcome to Regress\");\r",
+									"\r",
+									"let urlvar = pm.variables.get(\"url\");\r",
+									"console.log(\"Value for url variable is : \"+urlvar);\r",
+									"\r",
+									"pm.variables.set(\"name\", \"POSTMAN\");\r",
+									"console.log(pm.variables.get(\"name\"));\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
